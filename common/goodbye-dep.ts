@@ -1,0 +1,1 @@
+export default "Goodbye World!";

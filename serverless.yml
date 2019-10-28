@@ -31,6 +31,26 @@ package:
   exclude:
     - node_modules/**
 
+resources: # CloudFormation template syntax
+  Resources:
+    expenses:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: expenses
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+          - AttributeName: date
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: date
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
 functions:
   hello:
     handler: functions/hello.handler
