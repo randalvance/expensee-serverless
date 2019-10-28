@@ -1,4 +1,3 @@
-
 # app and org for use with dashboard.serverless.com
 app: expensee
 org: randal
@@ -18,15 +17,30 @@ provider:
   stage: dev
   stackName: expensee-stack-${self:provider.stage}
   apiName: expensee-api-${self:provider.stage}
+  deploymentBucket:
+    name: expensee-serverless-${self:provider.region}-deploys
+    tags:
+      project: expensee
   deploymentPrefix: expensee-serverless
   versionFunctions: false
   stackTags:
     project: expensee
 
+package:
+  individually: true
+  exclude:
+    - node_modules/**
+
 functions:
   hello:
-    handler: handler.hello
+    handler: functions/hello.handler
     events:
       - http:
           method: get
           path: hello
+  goodbye:
+    handler: functions/goodbye.handler
+    events:
+      - http:
+          method: get
+          path: goodbye
