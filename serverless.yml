@@ -11,7 +11,8 @@ plugins:
   - serverless-offline
 
 custom:
-  webpackIncludeModules: true
+  webpack:
+    includeModules: false
 
 provider:
   name: aws
