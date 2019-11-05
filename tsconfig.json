@@ -8,10 +8,7 @@
     "sourceMap": true,
     "target": "es2017",
     "outDir": "lib",
-    "allowSyntheticDefaultImports": true,
-    "paths": {
-      "expensee-common/*": ["layers/expensee-common/*"]
-    }
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules"]
 }
