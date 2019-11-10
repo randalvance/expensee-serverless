@@ -36,36 +36,37 @@ package:
   exclude:
     - node_modules/**
 
-resources: # CloudFormation template syntax
-  Resources:
-    expenses:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: expenses
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: N
-          - AttributeName: date
-            AttributeType: N
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-          - AttributeName: date
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+# resources: # CloudFormation template syntax
+#   Resources:
+#     expenses:
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         TableName: expensee_expenses
+#         AttributeDefinitions:
+#           - AttributeName: expense_id
+#             AttributeType: S
+#           - AttributeName: date
+#             AttributeType: N
+#         KeySchema:
+#           - AttributeName: id
+#             KeyType: HASH
+#           - AttributeName: date
+#             KeyType: RANGE
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+
+layers:
+  libNodeModule:
+    path: lib
+    description: "common node_module dependencies"
 
 functions:
-  hello:
-    handler: src/functions/hello.handler
+  addExpense:
+    handler: src/functions/addExpense.handler
+    layers:
+      - { Ref: LibNodeModuleLambdaLayer }
     events:
       - http:
-          method: get
-          path: hello
-  goodbye:
-    handler: src/functions/goodbye.handler
-    events:
-      - http:
-          method: get
-          path: goodbye
+          method: post
+          path: expense
