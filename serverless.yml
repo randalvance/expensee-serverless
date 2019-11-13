@@ -108,6 +108,15 @@ layers:
     description: "common node_module dependencies"
 
 functions:
+  listCategories:
+    handler: src/functions/listCategories.handler
+    layers:
+      - { Ref: LibNodeModuleLambdaLayer }
+    events:
+      - http:
+          method: get
+          path: category
+          cors: true
   addCategory:
     handler: src/functions/addCategory.handler
     layers:
