@@ -8,3 +8,8 @@ node_modules
 .webpack
 .dynamodb
 .serverless
+
+# Log files
+**/*.log
+
+.env

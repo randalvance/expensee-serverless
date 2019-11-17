@@ -5,15 +5,16 @@ org: randal
 service:
   name: expensee-serverless
 
-# Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-dotenv-plugin
 
 custom:
   webpack:
     includeModules: false
+    packager: "yarn"
   dynamodb:
     migration:
       dir: dynamoDbMigrations
@@ -68,39 +69,7 @@ package:
     - node_modules/**
 
 resources:
-  Resources:
-    ExpensesDynamoDbTable:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: expense_id
-            AttributeType: S
-          - AttributeName: date
-            AttributeType: N
-        KeySchema:
-          - AttributeName: expense_id
-            KeyType: HASH
-          - AttributeName: date
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST
-        TableName: ${self:provider.environment.DYNAMODB_EXPENSES_TABLE_NAME}
-    CategoriesDynamoDbTable:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-          - AttributeName: name
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-          - AttributeName: name
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST
-        TableName: ${self:provider.environment.DYNAMODB_CATEGORIES_TABLE_NAME}
+  - ${file(./src/resources/dynamodb-tables.yml)}
 
 layers:
   libNodeModule:
@@ -108,30 +77,4 @@ layers:
     description: "common node_module dependencies"
 
 functions:
-  listCategories:
-    handler: src/functions/listCategories.handler
-    layers:
-      - { Ref: LibNodeModuleLambdaLayer }
-    events:
-      - http:
-          method: get
-          path: category
-          cors: true
-  addCategory:
-    handler: src/functions/addCategory.handler
-    layers:
-      - { Ref: LibNodeModuleLambdaLayer }
-    events:
-      - http:
-          method: post
-          path: category
-          cors: true
-  addExpense:
-    handler: src/functions/addExpense.handler
-    layers:
-      - { Ref: LibNodeModuleLambdaLayer }
-    events:
-      - http:
-          method: post
-          path: expense
-          cors: true
+  - ${file(./src/functions/categories/functions.yml)}

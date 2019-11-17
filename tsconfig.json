@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "lib": ["es2017"],
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -8,7 +8,10 @@
     "sourceMap": true,
     "target": "es2017",
     "outDir": "lib",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "app/*": ["./*"]
+    }
   },
   "exclude": ["node_modules"]
 }

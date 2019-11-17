@@ -1,8 +1,9 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { ScanInput } from "aws-sdk/clients/dynamodb";
-import dynamoDb from "../data/dynamoDb";
 
-export const handler: APIGatewayProxyHandler = async (req, _context) => {
+import dynamoDb from "app/data/dynamoDb";
+
+export const handler: APIGatewayProxyHandler = async (_, _context) => {
   const params: ScanInput = {
     TableName: process.env.DYNAMODB_CATEGORIES_TABLE_NAME
   };

@@ -1,0 +1,18 @@
+getCategory:
+  handler: ./src/functions/categories/get.handler
+  layers:
+    - { Ref: LibNodeModuleLambdaLayer }
+  events:
+    - http:
+        method: get
+        path: category
+        cors: true
+postCategory:
+  handler: ./src/functions/categories/post.handler
+  layers:
+    - { Ref: LibNodeModuleLambdaLayer }
+  events:
+    - http:
+        method: post
+        path: category
+        cors: true

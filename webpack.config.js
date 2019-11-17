@@ -7,7 +7,10 @@ module.exports = {
   entry: slsw.lib.entries,
   devtool: "source-map",
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"]
+    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+    alias: {
+      app: path.resolve(__dirname, "src/")
+    }
   },
   output: {
     libraryTarget: "commonjs",
@@ -16,6 +19,9 @@ module.exports = {
   },
   target: "node",
   externals: [nodeExternals()],
+  optimization: {
+    minimize: false
+  },
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`

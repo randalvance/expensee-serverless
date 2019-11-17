@@ -1,6 +1,7 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { PutItemInput } from "aws-sdk/clients/dynamodb";
-import dynamoDb from "../data/dynamoDb";
+
+import dynamoDb from "app/data/dynamoDb";
 
 export const handler: APIGatewayProxyHandler = async (req, _context) => {
   const input = JSON.parse(req.body);
