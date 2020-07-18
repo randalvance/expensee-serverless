@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "date-fns": "^2.7.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "uuid": "^3.3.3"
   },
   "devDependencies": {},
